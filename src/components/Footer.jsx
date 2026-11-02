@@ -1,5 +1,6 @@
 import logo from '../assets/logo.webp';
 import { BUSINESS, whatsappLink } from '../config';
+import { openCookieSettings } from '../consent';
 import { SEO } from '../seo';
 import { SocialLinks } from './BrandIcon';
 import { Screws } from './Module';
@@ -26,6 +27,9 @@ export default function Footer() {
           © {new Date().getFullYear()} {BUSINESS.name}
         </span>
         <a href="/politica-de-privacidad.html">Política de privacidad</a>
+        <button type="button" className="footer-link" onClick={openCookieSettings}>
+          Configurar cookies
+        </button>
         <span>AMG-RACK-01</span>
       </div>
     </footer>

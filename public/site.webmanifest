@@ -1,0 +1,14 @@
+{
+  "name": "AMG Networking",
+  "short_name": "AMG",
+  "description": "Instalación de redes, cámaras de seguridad y soporte técnico en Bogotá.",
+  "lang": "es-CO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c10",
+  "theme_color": "#0a0c10",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -7,6 +7,7 @@
   <meta name="description" content="Cómo AMG Networking trata los datos personales y usa Google Analytics en su sitio web." />
   <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <style>
     :root { color-scheme: dark; }
@@ -19,6 +20,11 @@
     p, li { color: #b4bec9; }
     strong { color: #e8edf3; }
     .updated { font-family: ui-monospace, monospace; font-size: 13px; color: #9aa5b4; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid #2c333d; text-align: left; vertical-align: top; color: #b4bec9; }
+    th { color: #e8edf3; font-weight: 600; }
+    code { font-family: ui-monospace, monospace; color: #e8edf3; }
   </style>
 </head>
 <body>
@@ -35,7 +41,7 @@
     <h2>Datos que recibimos</h2>
     <ul>
       <li><strong>Datos que nos envías:</strong> tu nombre, tu número de WhatsApp y la información que escribes cuando nos contactas por WhatsApp, redes sociales o el formulario del sitio. El formulario solo abre WhatsApp con tu mensaje; el sitio no guarda esa información.</li>
-      <li><strong>Datos de navegación:</strong> usamos Google Analytics para saber cuántas personas visitan el sitio y cómo lo usan (páginas vistas, tipo de dispositivo, ubicación aproximada y clics en los botones de contacto). Google Analytics usa cookies y no nos entrega datos que te identifiquen directamente.</li>
+      <li><strong>Datos de navegación:</strong> usamos Google Analytics para saber cuántas personas visitan el sitio y cómo lo usan (páginas vistas, tipo de dispositivo, ubicación aproximada y clics en los botones de contacto). Google Analytics no nos entrega datos que te identifiquen directamente y solo guarda cookies si las aceptas.</li>
     </ul>
 
     <h2>Para qué los usamos</h2>
@@ -46,6 +52,20 @@
     <p>No vendemos tus datos ni los compartimos con terceros con fines comerciales.</p>
 
     <h2>Cookies y Google Analytics</h2>
+    <p>Al entrar al sitio te mostramos un aviso para que elijas qué cookies aceptas: todas, solo las necesarias o las que tú elijas. Puedes cambiar tu elección cuando quieras con el enlace «Configurar cookies» al pie de la página principal.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Tipo</th><th>Para qué sirve</th><th>Duración</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>amg-consent</code> (almacenamiento del navegador)</td><td>Necesaria</td><td>Guarda tu elección de cookies</td><td>1 año</td></tr>
+          <tr><td><code>_ga</code></td><td>Analítica (solo si la aceptas)</td><td>Distingue visitantes de forma anónima</td><td>2 años</td></tr>
+          <tr><td><code>_ga_S1X987JEE0</code></td><td>Analítica (solo si la aceptas)</td><td>Mantiene el estado de la visita</td><td>2 años</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Si no aceptas las cookies de analítica, Google Analytics no guarda cookies en tu navegador y solo recibe señales básicas sin identificadores (modo de consentimiento de Google).</p>
     <p>Google Analytics es un servicio de Google LLC. Puedes ver cómo usa Google la información de los sitios que usan sus servicios en <a href="https://policies.google.com/technologies/partner-sites?hl=es">policies.google.com/technologies/partner-sites</a>. Si no quieres que se mida tu visita, puedes bloquear las cookies en tu navegador o instalar el <a href="https://tools.google.com/dlpage/gaoptout?hl=es">complemento de inhabilitación de Google Analytics</a>.</p>
 
     <h2>Tus derechos</h2>

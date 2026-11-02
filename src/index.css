@@ -1206,6 +1206,212 @@ main {
   color: var(--label);
 }
 
+.footer-link {
+  padding: 0;
+  background: none;
+  border: 0;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  color: var(--led);
+}
+
+/* ───────────── Aviso de cookies ───────────── */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 80;
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  transform: translateX(-50%);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.85);
+  animation: cookie-in 0.35s ease;
+}
+
+@keyframes cookie-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+}
+
+.cookie-banner:focus {
+  outline: none;
+}
+
+.cookie-body {
+  padding: 22px 36px 26px;
+}
+
+.cookie-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  font-stretch: 112%;
+  text-transform: uppercase;
+}
+
+.cookie-body > p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.cookie-body > p a {
+  color: var(--led);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cookie-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.cookie-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.cookie-option.is-locked {
+  cursor: default;
+}
+
+/* Casilla nativa oculta pero accesible; el interruptor es solo visual */
+.cookie-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border: 1px solid var(--panel-top);
+  border-radius: 999px;
+  background: #2a313a;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--label);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.cookie-option input:checked + .switch {
+  border-color: var(--led);
+  background: rgba(25, 195, 255, 0.22);
+}
+
+.cookie-option input:checked + .switch::after {
+  transform: translateX(20px);
+  background: var(--led);
+}
+
+.cookie-option input:disabled + .switch {
+  opacity: 0.6;
+}
+
+.cookie-option input:focus-visible + .switch {
+  outline: 2px solid var(--led);
+  outline-offset: 2px;
+}
+
+.cookie-option strong {
+  display: block;
+  font-size: 15px;
+}
+
+.cookie-option small {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cookie-actions .btn {
+  height: 48px;
+  font-size: 15px;
+}
+
+.btn-led {
+  background: var(--led);
+  color: #04121c;
+}
+
+.btn-led:hover {
+  background: #4fd2ff;
+}
+
+.btn-link {
+  min-height: 44px;
+  padding: 0 8px;
+  background: none;
+  border: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--label);
+  cursor: pointer;
+}
+
+.btn-link:hover {
+  color: var(--text);
+}
+
+/* ───────────── Saltar al contenido (teclado) ───────────── */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  background: var(--led);
+  color: #04121c;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
 /* ───────────── WhatsApp flotante (solo móvil) ───────────── */
 .wa-float {
   position: fixed;
@@ -1391,6 +1597,24 @@ main {
   .faq-item p {
     padding-left: 46px;
     font-size: 15.5px;
+  }
+
+  .cookie-banner {
+    bottom: 8px;
+    width: calc(100% - 16px);
+  }
+
+  .cookie-body {
+    padding: 18px 20px 20px;
+  }
+
+  .cookie-title {
+    font-size: 19px;
+  }
+
+  .cookie-actions .btn {
+    flex: 1 1 140px;
+    padding: 0 12px;
   }
 }
 

@@ -8,6 +8,7 @@ import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import CookieBanner from './components/CookieBanner';
 import { Screws } from './components/Module';
 
 // Anima la aparición de los módulos que están más abajo de la pantalla al cargar.
@@ -40,11 +41,14 @@ export default function App() {
 
   return (
     <>
+      <a className="skip-link" href="#contenido">
+        Saltar al contenido
+      </a>
       <div className="rack">
         <div className="rail" aria-hidden="true" />
         <div className="rack-units">
           <Navbar />
-          <main>
+          <main id="contenido">
             <Hero />
             {/* Panel ciego ventilado entre equipos */}
             <div className="module vent" aria-hidden="true">
@@ -61,6 +65,7 @@ export default function App() {
         <div className="rail" aria-hidden="true" />
       </div>
       <WhatsAppFloat />
+      <CookieBanner />
     </>
   );
 }

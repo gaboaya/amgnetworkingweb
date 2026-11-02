@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { track } from '../analytics';
 import { whatsappLink } from '../config';
 import { SERVICES } from '../data/services';
+import { inCity } from '../seo';
 import { BrandIcon } from './BrandIcon';
 import Module from './Module';
 
@@ -42,8 +43,8 @@ export default function Services() {
           servicios
         </h2>
         <p className="lead">
-          Instalación de redes, cámaras de seguridad, WiFi y mantenimiento de equipos. Conecta un puerto para ver cada
-          servicio en detalle y cotízalo directo por WhatsApp.
+          Instalación de redes, cámaras de seguridad, WiFi y mantenimiento de equipos{inCity}. Conecta un puerto para
+          ver cada servicio en detalle y cotízalo directo por WhatsApp.
         </p>
       </div>
 

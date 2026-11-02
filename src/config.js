@@ -15,7 +15,7 @@ export const BUSINESS = {
   email: '', // ej: 'contacto@amgnetworking.com'
   // Ciudad principal donde trabajas (ej: 'Bogotá'). Se agrega al título, al encabezado
   // principal y a los datos para Google: es lo que más ayuda al SEO local.
-  city: '',
+  city: 'Bogotá',
 
   social: {
     facebook: 'https://www.facebook.com/amgnetworking/',
@@ -31,7 +31,7 @@ export const SITE = {
   // Dominio donde se publica el sitio, con https y sin "/" al final
   // (ej: 'https://www.amgnetworking.com'). Activa la URL canónica, el sitemap.xml
   // y las vistas previas al compartir el enlace en WhatsApp y redes.
-  url: '',
+  url: 'https://amgnetworking.com',
   // Google Analytics 4. Solo se carga en la versión publicada (npm run build), no en npm run dev.
   gaId: 'G-S1X987JEE0',
   // Google Search Console: código de la etiqueta meta "google-site-verification" (opcional;

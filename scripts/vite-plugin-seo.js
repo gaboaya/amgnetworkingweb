@@ -2,6 +2,7 @@
 // título, descripción, Open Graph, datos estructurados (JSON-LD), Google Analytics,
 // verificación de Search Console, robots.txt y sitemap.xml.
 import { BUSINESS, SITE } from '../src/config.js';
+import { consentHeadScript } from '../src/consent.js';
 import { SEO } from '../src/seo.js';
 import { SERVICES } from '../src/data/services.js';
 import { FAQ } from '../src/data/faq.js';
@@ -98,17 +99,14 @@ function headTags(isBuild) {
   if (SITE.googleSiteVerification) {
     tags.push(meta({ name: 'google-site-verification', content: SITE.googleSiteVerification }));
   }
-  // Google Analytics solo en la versión publicada, para no contar las visitas de desarrollo
+  // Google Analytics solo en la versión publicada, para no contar las visitas de desarrollo.
+  // El consentimiento va primero: sin permiso del visitante, Analytics no guarda cookies.
   if (isBuild && SITE.gaId) {
     tags.push(
+      { tag: 'script', children: consentHeadScript(SITE.gaId), injectTo: 'head' },
       {
         tag: 'script',
         attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}` },
-        injectTo: 'head',
-      },
-      {
-        tag: 'script',
-        children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${SITE.gaId}');`,
         injectTo: 'head',
       },
     );

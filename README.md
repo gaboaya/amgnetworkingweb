@@ -36,10 +36,27 @@ Al compilar (`npm run build`) se genera automáticamente:
 - **Datos estructurados (JSON-LD)**: negocio, catálogo de servicios y preguntas frecuentes.
 - **`robots.txt`** y **`sitemap.xml`** (el sitemap y la URL canónica solo se generan si configuras `SITE.url`).
 
-Para el mejor resultado, completa en `src/config.js`:
+El dominio (`SITE.url`, hoy `https://amgnetworking.com`) y la ciudad (`BUSINESS.city`, hoy `Bogotá`)
+están en `src/config.js`. Si cambian, edítalos ahí y vuelve a compilar.
 
-- `SITE.url`: tu dominio, por ejemplo `https://www.amgnetworking.com`.
-- `BUSINESS.city`: tu ciudad, por ejemplo `Bogotá`. Es lo que más ayuda a aparecer en búsquedas locales.
+## Cookies
+
+Al entrar, el visitante ve un aviso para **aceptar todas**, quedarse con **solo las necesarias** o **configurar**
+(activar o no la analítica). Usa el modo de consentimiento v2 de Google: mientras no acepte, Google Analytics
+no guarda cookies. La elección se guarda un año y se puede cambiar con **Configurar cookies** en el pie de página.
+El aviso está en `src/components/CookieBanner.jsx` y la lógica en `src/consent.js`.
+
+## Archivos para el hosting (carpeta `public/`)
+
+| Archivo                       | Para qué sirve                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| `.htaccess`                   | Apache (Hostinger, cPanel): HTTPS, quitar `www`, página 404, caché y seguridad   |
+| `_headers`                    | Lo mismo (caché y seguridad) para Netlify y Cloudflare Pages                     |
+| `404.html`                    | Página para direcciones que no existen                                           |
+| `site.webmanifest`, íconos    | Nombre e íconos del sitio en celulares y en Google                               |
+| `politica-de-privacidad.html` | Política de privacidad y lista de cookies (actualízala si cambias el ID de Analytics) |
+
+La redirección a HTTPS del `.htaccess` necesita el certificado SSL activo en el hosting (casi todos lo dan gratis).
 
 ## Google Analytics 4
 
@@ -59,10 +76,10 @@ En Google Analytics ve a **Administrar → Eventos** y marca `whatsapp_click`, `
 
 ## Google Search Console
 
-1. Publica el sitio con `SITE.url` configurado.
-2. En [Search Console](https://search.google.com/search-console) agrega una propiedad de tipo **Prefijo de URL** con tu dominio.
+1. Publica el sitio en `https://amgnetworking.com`.
+2. En [Search Console](https://search.google.com/search-console) agrega una propiedad de tipo **Prefijo de URL**: `https://amgnetworking.com/`.
 3. Verifícala con el método **Google Analytics** (con la misma cuenta de Google del ID de Analytics). Otra opción: copia el código de la **etiqueta HTML** en `SITE.googleSiteVerification` y vuelve a publicar.
-4. En **Sitemaps**, envía `sitemap.xml`.
+4. En **Sitemaps**, envía `sitemap.xml` (queda en `https://amgnetworking.com/sitemap.xml`).
 
 ## Publicar
 

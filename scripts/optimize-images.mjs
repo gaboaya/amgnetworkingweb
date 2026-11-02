@@ -1,7 +1,7 @@
 // Genera las imágenes optimizadas del sitio a partir de la carpeta /fotos.
 // Uso: npm run images
 import sharp from 'sharp';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -87,5 +87,18 @@ await sharp(icon).toFile(path.join(pub, 'favicon.png'));
 // Google pide favicons de un tamaño múltiplo de 48 px
 await sharp(icon).resize(192).png().toFile(path.join(pub, 'favicon-192.png'));
 await sharp(icon).resize(180).png().toFile(path.join(pub, 'apple-touch-icon.png'));
+
+// favicon.ico de 48×48 (navegadores y buscadores lo piden en la raíz): un PNG dentro de un contenedor ICO
+const ico48 = await sharp(icon).resize(48).png().toBuffer();
+const icoHeader = Buffer.alloc(22);
+icoHeader.writeUInt16LE(1, 2); // tipo: ícono
+icoHeader.writeUInt16LE(1, 4); // una imagen
+icoHeader.writeUInt8(48, 6); // ancho
+icoHeader.writeUInt8(48, 7); // alto
+icoHeader.writeUInt16LE(1, 10); // planos de color
+icoHeader.writeUInt16LE(32, 12); // bits por píxel
+icoHeader.writeUInt32LE(ico48.length, 14); // tamaño de la imagen
+icoHeader.writeUInt32LE(22, 18); // la imagen empieza después de esta cabecera
+await writeFile(path.join(pub, 'favicon.ico'), Buffer.concat([icoHeader, ico48]));
 
 console.log('Imágenes generadas en src/assets y public/');

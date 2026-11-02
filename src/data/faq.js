@@ -18,6 +18,14 @@ export const FAQ = [
     answer:
       'Atendemos hogares, oficinas y empresas. Cada trabajo se define según el espacio, la cantidad de equipos y lo que necesitas.',
   },
+  ...(BUSINESS.city
+    ? [
+        {
+          question: `¿Prestan servicio en ${BUSINESS.city}?`,
+          answer: `Sí, trabajamos en ${BUSINESS.city}. Escríbenos por WhatsApp con la dirección del lugar y coordinamos la visita o el soporte remoto.`,
+        },
+      ]
+    : []),
   {
     question: '¿Hacen mantenimiento a la red y a los computadores que ya tengo?',
     answer:

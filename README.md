@@ -23,6 +23,7 @@ npm run images    # regenerar imágenes optimizadas desde la carpeta fotos/
 | Colores y estilos                                      | `src/index.css` (`:root`) |
 | Textos de cada sección                                 | `src/components/*.jsx`    |
 | Política de privacidad                                 | `public/politica-de-privacidad.html` |
+| Despliegue en el servidor y Nginx                      | `deploy/`                 |
 
 Las redes sociales que dejes vacías en `src/config.js` no aparecen en el sitio.
 Si cambias `src/config.js` mientras corre `npm run dev`, reinicia el servidor para ver los cambios en el título y las etiquetas.
@@ -46,17 +47,16 @@ Al entrar, el visitante ve un aviso para **aceptar todas**, quedarse con **solo 
 no guarda cookies. La elección se guarda un año y se puede cambiar con **Configurar cookies** en el pie de página.
 El aviso está en `src/components/CookieBanner.jsx` y la lógica en `src/consent.js`.
 
-## Archivos para el hosting (carpeta `public/`)
+## Archivos públicos (carpeta `public/`)
 
 | Archivo                       | Para qué sirve                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------- |
-| `.htaccess`                   | Apache (Hostinger, cPanel): HTTPS, quitar `www`, página 404, caché y seguridad   |
-| `_headers`                    | Lo mismo (caché y seguridad) para Netlify y Cloudflare Pages                     |
 | `404.html`                    | Página para direcciones que no existen                                           |
 | `site.webmanifest`, íconos    | Nombre e íconos del sitio en celulares y en Google                               |
 | `politica-de-privacidad.html` | Política de privacidad y lista de cookies (actualízala si cambias el ID de Analytics) |
 
-La redirección a HTTPS del `.htaccess` necesita el certificado SSL activo en el hosting (casi todos lo dan gratis).
+La redirección a HTTPS y a `amgnetworking.com` sin www, la caché y las cabeceras de seguridad están en la
+configuración de Nginx: `deploy/nginx/amgnetworking.com.conf`.
 
 ## Google Analytics 4
 
@@ -83,5 +83,9 @@ En Google Analytics ve a **Administrar → Eventos** y marca `whatsapp_click`, `
 
 ## Publicar
 
-Ejecuta `npm run build` y sube el contenido de la carpeta `dist/` a cualquier hosting estático
-(Netlify, Vercel, Hostinger, cPanel, etc.).
+El sitio se publica en tu servidor Linux con Nginx. Los pasos (Node, certificado SSL, Nginx y el script de
+despliegue) están en [deploy/README.md](deploy/README.md). Una vez configurado, cada vez que subas cambios a GitHub:
+
+```bash
+sudo deploy-amgnetworking
+```

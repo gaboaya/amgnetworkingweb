@@ -1,0 +1,3 @@
+# Scripts y configuración del servidor siempre con saltos de línea de Linux
+*.sh text eol=lf
+*.conf text eol=lf

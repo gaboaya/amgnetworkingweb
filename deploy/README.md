@@ -1,7 +1,8 @@
-# Despliegue en el servidor (Linux + Nginx)
+# Despliegue en el servidor (Linux + Nginx + Cloudflare Tunnel)
 
-Nginx sirve el sitio desde `/var/www/amgnetworking/current`.
-`deploy.sh` descarga lo último de GitHub, compila y copia el resultado ahí.
+Cloudflare recibe las visitas (con https) y las envía por el túnel a Nginx en `http://localhost:82`.
+Nginx sirve el sitio desde `/var/www/amgnetworking/current`, y `deploy.sh` descarga lo último de GitHub,
+compila y copia el resultado ahí.
 
 ## Requisitos (una vez)
 
@@ -12,44 +13,26 @@ Nginx sirve el sitio desde `/var/www/amgnetworking/current`.
   sudo apt install -y nodejs
   ```
 
-- git, rsync, Nginx y Certbot:
+- git, rsync y Nginx:
 
   ```bash
-  sudo apt install -y git rsync nginx certbot
+  sudo apt install -y git rsync nginx
   ```
 
-- El dominio apuntando al servidor: registros DNS `A` de `amgnetworking.com` y `www.amgnetworking.com` con la IP del servidor.
+- Cloudflare Tunnel (`cloudflared`) instalado y conectado en el servidor.
 
 ## 1. Descargar el proyecto
 
-El repositorio es público, así que no hace falta ninguna clave:
+Desde la carpeta del usuario, **no** desde dentro de `amgnetworkingweb` (si no, el proyecto queda en una subcarpeta):
 
 ```bash
-sudo git clone https://github.com/gaboaya/amgnetworkingweb.git /home/amgnetworking/amgnetworkingweb
+cd /home/amgnetworking
+sudo git clone git@github.com:gaboaya/amgnetworkingweb.git
 ```
 
-## 2. Certificado SSL (si aún no lo tienes)
+Debe existir `/home/amgnetworking/amgnetworkingweb/package.json`.
 
-Primero una configuración temporal, solo con http, para que Let's Encrypt pueda verificar el dominio:
-
-```bash
-sudo mkdir -p /var/www/letsencrypt /var/www/amgnetworking/current
-sudo tee /etc/nginx/sites-available/amgnetworking.com > /dev/null <<'EOF'
-server {
-    listen 80;
-    listen [::]:80;
-    server_name amgnetworking.com www.amgnetworking.com;
-    location /.well-known/acme-challenge/ { root /var/www/letsencrypt; }
-}
-EOF
-sudo ln -sf /etc/nginx/sites-available/amgnetworking.com /etc/nginx/sites-enabled/amgnetworking.com
-sudo nginx -t && sudo systemctl reload nginx
-sudo certbot certonly --webroot -w /var/www/letsencrypt -d amgnetworking.com -d www.amgnetworking.com --deploy-hook "systemctl reload nginx"
-```
-
-Certbot renueva el certificado solo y recarga Nginx cuando lo hace.
-
-## 3. Configuración de Nginx
+## 2. Configuración de Nginx
 
 ```bash
 sudo cp /home/amgnetworking/amgnetworkingweb/deploy/nginx/amgnetworking.com.conf /etc/nginx/sites-available/amgnetworking.com
@@ -57,7 +40,29 @@ sudo ln -sf /etc/nginx/sites-available/amgnetworking.com /etc/nginx/sites-enable
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-Incluye la redirección a https y a `amgnetworking.com` sin www, la página 404, caché, compresión y cabeceras de seguridad.
+Escucha en el puerto 82 e incluye el paso a https, la redirección de www, la página 404, caché, compresión
+y cabeceras de seguridad.
+
+## 3. Cloudflare Tunnel
+
+En Cloudflare Zero Trust → **Networks → Tunnels**, abre tu túnel (debe aparecer **Healthy**) y en
+**Public Hostnames** agrega:
+
+| Hostname                | Servicio              |
+| ----------------------- | --------------------- |
+| `amgnetworking.com`     | HTTP → `localhost:82` |
+| `www.amgnetworking.com` | HTTP → `localhost:82` |
+
+Si manejas el túnel con un archivo `config.yml`, las reglas equivalentes son (antes de la regla final `http_status:404`):
+
+```yaml
+  - hostname: amgnetworking.com
+    service: http://localhost:82
+  - hostname: www.amgnetworking.com
+    service: http://localhost:82
+```
+
+En Cloudflare, en **SSL/TLS → Edge Certificates**, activa **Always Use HTTPS**.
 
 ## 4. Script de despliegue
 
@@ -76,7 +81,9 @@ Si algún día cambia `deploy.sh` en el repositorio, vuelve a copiarlo (paso 4).
 
 ## Problemas comunes
 
+- **`error code: 1033` en el navegador**: el túnel de Cloudflare no está conectado o no tiene el hostname.
+  Revisa `sudo systemctl status cloudflared` y el paso 3.
+- **`Could not read package.json`**: el proyecto quedó en una subcarpeta. Repite el paso 1 desde `/home/amgnetworking`.
 - **`detected dubious ownership`**: el proyecto se descargó con otro usuario. Ejecuta una vez
   `sudo git config --global --add safe.directory /home/amgnetworking/amgnetworkingweb`.
 - **`se necesita Node.js 20.19+ o 22.12+`**: instala Node 22 (ver Requisitos).
-- **`nginx -t` falla por el certificado**: haz primero el paso 2.

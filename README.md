@@ -83,8 +83,8 @@ En Google Analytics ve a **Administrar → Eventos** y marca `whatsapp_click`, `
 
 ## Publicar
 
-El sitio se publica en tu servidor Linux con Nginx. Los pasos (Node, certificado SSL, Nginx y el script de
-despliegue) están en [deploy/README.md](deploy/README.md). Una vez configurado, cada vez que subas cambios a GitHub:
+El sitio se publica en tu servidor Linux con Nginx, detrás de Cloudflare Tunnel. Los pasos (Node, Nginx,
+el túnel y el script de despliegue) están en [deploy/README.md](deploy/README.md). Una vez configurado, cada vez que subas cambios a GitHub:
 
 ```bash
 sudo deploy-amgnetworking

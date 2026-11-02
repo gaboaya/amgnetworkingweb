@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { track } from '../analytics';
 import { whatsappLink } from '../config';
 import { SERVICES } from '../data/services';
+import { servicePath } from '../routes';
 import { inCity } from '../seo';
 import { BrandIcon } from './BrandIcon';
 import Module from './Module';
@@ -95,11 +96,14 @@ export default function Services() {
             >
               <BrandIcon name="whatsapp" size={20} /> Cotizar este servicio
             </a>
+            <a className="readout-more" href={servicePath(s)}>
+              Ver todo sobre {s.title.toLowerCase()} →
+            </a>
           </div>
           <div>
             <p className="spec-title">Incluye</p>
             <ul className="spec-list">
-              {s.items.map((item) => (
+              {s.items.slice(0, 4).map((item) => (
                 <li key={item}>
                   <span aria-hidden="true">›</span> {item}
                 </li>

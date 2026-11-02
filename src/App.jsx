@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Process from './components/Process';
-import About from './components/About';
-import Faq from './components/Faq';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
 import CookieBanner from './components/CookieBanner';
-import { Screws } from './components/Module';
+import HomePage from './pages/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import ServicePage from './pages/ServicePage';
+import ContactPage from './pages/ContactPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { findRoute } from './routes';
 
 // Anima la aparición de los módulos que están más abajo de la pantalla al cargar.
 // El contenido es visible por defecto (HTML prerenderizado): solo se oculta lo que aún no se ve.
@@ -36,8 +35,18 @@ function useReveal() {
   }, []);
 }
 
-export default function App() {
+// Cada URL es una página prerenderizada; los enlaces entre páginas son enlaces normales
+function Page({ route }) {
+  if (!route) return <NotFoundPage />;
+  if (route.service) return <ServicePage service={route.service} crumbs={route.crumbs} />;
+  if (route.path === '/servicios/') return <ServicesPage crumbs={route.crumbs} />;
+  if (route.path === '/contacto/') return <ContactPage crumbs={route.crumbs} />;
+  return <HomePage />;
+}
+
+export default function App({ path = '/' }) {
   useReveal();
+  const route = findRoute(path);
 
   return (
     <>
@@ -47,18 +56,9 @@ export default function App() {
       <div className="rack">
         <div className="rail" aria-hidden="true" />
         <div className="rack-units">
-          <Navbar />
+          <Navbar currentPath={route?.path} />
           <main id="contenido">
-            <Hero />
-            {/* Panel ciego ventilado entre equipos */}
-            <div className="module vent" aria-hidden="true">
-              <Screws sides />
-            </div>
-            <Services />
-            <Process />
-            <About />
-            <Faq />
-            <Contact />
+            <Page route={route} />
           </main>
           <Footer />
         </div>

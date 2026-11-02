@@ -17,7 +17,8 @@ npm run images    # regenerar imágenes optimizadas desde la carpeta fotos/
 | Qué quieres cambiar                                    | Archivo                   |
 | ------------------------------------------------------ | ------------------------- |
 | WhatsApp, correo, ciudad, redes sociales, dominio, GA  | `src/config.js`           |
-| Servicios (puertos del panel, detalle)                 | `src/data/services.js`    |
+| Servicios: panel del inicio y página de cada servicio  | `src/data/services.js`    |
+| Páginas del sitio (URL, título y descripción)          | `src/routes.js`           |
 | Preguntas frecuentes                                   | `src/data/faq.js`         |
 | Título y descripción para Google                       | `src/seo.js`              |
 | Colores y estilos                                      | `src/index.css` (`:root`) |
@@ -30,12 +31,23 @@ Si cambias `src/config.js` mientras corre `npm run dev`, reinicia el servidor pa
 
 ## SEO
 
+El sitio tiene 11 páginas, cada una con su propia URL para que Google pueda mostrarla en los resultados:
+
+| Página                    | URL                                   |
+| ------------------------- | ------------------------------------- |
+| Inicio                    | `/`                                   |
+| Todos los servicios       | `/servicios/`                         |
+| Cada servicio (8 páginas) | `/servicios/instalacion-de-redes/`, … |
+| Contacto                  | `/contacto/`                          |
+
 Al compilar (`npm run build`) se genera automáticamente:
 
-- **HTML prerenderizado** con todo el contenido: Google, Bing y las vistas previas de WhatsApp lo leen sin ejecutar JavaScript.
-- **Título, descripción y Open Graph** desde `src/seo.js` (incluyen la ciudad si la defines en `src/config.js`).
-- **Datos estructurados (JSON-LD)**: negocio, catálogo de servicios y preguntas frecuentes.
-- **`robots.txt`** y **`sitemap.xml`** (el sitemap y la URL canónica solo se generan si configuras `SITE.url`).
+- **HTML prerenderizado** de cada página con todo el contenido: Google, Bing y las vistas previas de WhatsApp lo leen sin ejecutar JavaScript.
+- **Título, descripción, URL canónica y Open Graph** propios de cada página (`src/routes.js`, con la ciudad de `src/config.js`).
+- **Datos estructurados (JSON-LD)**: negocio, servicio, ruta de navegación (Inicio › Servicios › …), preguntas frecuentes y página de contacto.
+- **`sitemap.xml`** con las 11 páginas y sus fotos, y **`robots.txt`** apuntando a él.
+
+Para agregar un servicio, añádelo en `src/data/services.js`: su página, el sitemap, el menú del pie de página y el panel del inicio se actualizan solos.
 
 El dominio (`SITE.url`, hoy `https://amgnetworking.com`) y la ciudad (`BUSINESS.city`, hoy `Bogotá`)
 están en `src/config.js`. Si cambian, edítalos ahí y vuelve a compilar.

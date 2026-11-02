@@ -5,14 +5,15 @@ import { BUSINESS, whatsappLink } from '../config';
 import { BrandIcon } from './BrandIcon';
 import { Screws } from './Module';
 
+// Servicios y Contacto son páginas propias; Proceso y Nosotros son secciones del inicio
 const LINKS = [
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#proceso', label: 'Proceso' },
-  { href: '#nosotros', label: 'Nosotros' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '/servicios/', label: 'Servicios' },
+  { href: '/#proceso', label: 'Proceso' },
+  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/contacto/', label: 'Contacto' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ currentPath }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -27,13 +28,13 @@ export default function Navbar() {
   return (
     <header className="module topbar">
       <Screws sides />
-      <a href="#inicio" className="logo-plate" aria-label="AMG Networking, ir al inicio" onClick={close}>
+      <a href="/" className="logo-plate" aria-label="AMG Networking, ir al inicio" onClick={close}>
         <img src={logo} alt="AMG Networking" width="520" height="216" />
       </a>
 
       <nav className="navports" aria-label="Principal">
         {LINKS.map((link) => (
-          <a key={link.href} href={link.href}>
+          <a key={link.href} href={link.href} aria-current={link.href === currentPath ? 'page' : undefined}>
             <span className="led" /> {link.label}
           </a>
         ))}

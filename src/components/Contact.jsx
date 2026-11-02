@@ -13,8 +13,9 @@ const [WHATSAPP, ...SOCIAL] = SOCIAL_LINKS;
 const UPLINKS = [WHATSAPP, { name: 'phone', url: phoneLink, label: 'Llamar', handle: WHATSAPP.handle }, ...SOCIAL];
 const LED = { whatsapp: 'led-green', phone: 'led-amber' };
 
-export default function Contact() {
-  const [form, setForm] = useState(EMPTY_FORM);
+// En la página de un servicio, el formulario llega con ese servicio ya elegido
+export default function Contact({ defaultService = '' }) {
+  const [form, setForm] = useState({ ...EMPTY_FORM, service: defaultService });
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 

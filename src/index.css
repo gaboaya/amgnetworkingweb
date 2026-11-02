@@ -375,7 +375,8 @@ main {
   transition: color 0.15s ease, background-color 0.15s ease;
 }
 
-.navports a:hover {
+.navports a:hover,
+.navports a[aria-current='page'] {
   color: var(--text);
   background: var(--panel-hover);
 }
@@ -710,6 +711,8 @@ main {
   margin-bottom: 14px;
   font-family: var(--mono);
   font-size: 11px;
+  font-weight: 400;
+  line-height: 1.6;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--label);
@@ -1047,6 +1050,135 @@ main {
   color: var(--label);
 }
 
+.readout-more {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--led);
+}
+
+.readout-more:hover {
+  color: var(--text);
+}
+
+/* ───────────── Páginas internas ───────────── */
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-bottom: 26px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.breadcrumb li + li::before {
+  content: '/';
+  margin-right: 10px;
+  color: var(--dim);
+}
+
+.breadcrumb a {
+  color: var(--led);
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb [aria-current] {
+  color: var(--text);
+}
+
+.page-header-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.page-title {
+  margin-top: 18px;
+  font-size: clamp(30px, 3.8vw, 52px);
+}
+
+.page-lead {
+  margin-top: 20px;
+}
+
+.spec-sheet {
+  padding: 28px 28px 30px;
+  background: var(--inset);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+}
+
+.spec-title-gap {
+  margin-top: 26px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 20px 20px 22px;
+  background: var(--panel-2);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.service-card:hover {
+  border-color: var(--led);
+  background: var(--panel-hover);
+}
+
+.service-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.service-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  font-stretch: 108%;
+  line-height: 1.15;
+}
+
+.service-card p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.service-card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--led);
+}
+
 /* ───────────── Preguntas frecuentes ───────────── */
 .faq {
   border-top: 1px solid var(--divider);
@@ -1168,6 +1300,38 @@ main {
 .social-links a:hover {
   background: var(--led);
   color: #04121c;
+}
+
+.footer-links {
+  flex-basis: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 24px 40px;
+  padding: 20px 0 4px;
+  border-top: 1px solid var(--divider);
+}
+
+.footer-links-title {
+  margin-bottom: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--label);
+}
+
+.footer-links ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 24px;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: var(--body);
+}
+
+.footer-links a:hover {
+  color: var(--led);
 }
 
 .footer-nap {
@@ -1513,7 +1677,9 @@ main {
   .section-intro,
   .readout,
   .about-grid,
-  .contact-grid {
+  .contact-grid,
+  .page-header-grid,
+  .footer-links {
     grid-template-columns: minmax(0, 1fr);
     gap: 36px;
   }

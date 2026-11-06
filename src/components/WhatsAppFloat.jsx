@@ -1,7 +1,7 @@
 import { whatsappLink } from '../config';
-import { BrandIcon } from './BrandIcon';
+import WhatsAppIcon from './WhatsAppIcon';
 
-// Solo se muestra en móvil (ver .wa-float en index.css); en escritorio el WhatsApp está en la barra superior
+// Solo se muestra en móvil (ver .wa-float en index.css)
 export default function WhatsAppFloat() {
   return (
     <a
@@ -9,9 +9,9 @@ export default function WhatsAppFloat() {
       href={whatsappLink()}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Escríbenos por WhatsApp"
+      aria-label="Escríbanos por WhatsApp"
     >
-      <BrandIcon name="whatsapp" size={30} />
+      <WhatsAppIcon size={28} />
     </a>
   );
 }

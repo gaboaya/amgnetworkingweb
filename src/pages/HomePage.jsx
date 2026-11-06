@@ -1,22 +1,25 @@
 import Hero from '../components/Hero';
-import Services from '../components/Services';
-import Process from '../components/Process';
+import Commitments from '../components/Commitments';
+import SoftwareBand from '../components/SoftwareBand';
+import ServiceLines from '../components/ServiceLines';
+import Projects from '../components/Projects';
+import Brands from '../components/Brands';
 import About from '../components/About';
+import Process from '../components/Process';
 import Faq from '../components/Faq';
 import Contact from '../components/Contact';
-import { Screws } from '../components/Module';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      {/* Panel ciego ventilado entre equipos */}
-      <div className="module vent" aria-hidden="true">
-        <Screws sides />
-      </div>
-      <Services />
-      <Process />
+      <Commitments />
+      <SoftwareBand />
+      <ServiceLines />
+      <Projects />
+      <Brands />
       <About />
+      <Process />
       <Faq />
       <Contact />
     </>

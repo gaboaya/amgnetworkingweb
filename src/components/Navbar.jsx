@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import logo from '../assets/logo.webp';
-import { BUSINESS, whatsappLink } from '../config';
-import { BrandIcon } from './BrandIcon';
-import { Screws } from './Module';
+import { MapPin, Menu, Phone, X } from 'lucide-react';
+import logo from '../assets/logo-claro.webp';
+import { SOCIAL_LINKS, locationLabel, phoneIntl, phoneLink } from '../config';
 
-// Servicios y Contacto son páginas propias; Proceso y Nosotros son secciones del inicio
+// Son páginas propias, salvo Empresa, que es una sección del inicio
 const LINKS = [
+  { href: '/desarrollo-de-software/', label: 'Software' },
   { href: '/servicios/', label: 'Servicios' },
-  { href: '/#proceso', label: 'Proceso' },
-  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/proyectos/', label: 'Proyectos' },
+  { href: '/#empresa', label: 'Empresa' },
   { href: '/contacto/', label: 'Contacto' },
 ];
 
-export default function Navbar({ currentPath }) {
+export default function Navbar({ currentPath = '' }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -24,58 +23,73 @@ export default function Navbar({ currentPath }) {
   }, [open]);
 
   const close = () => setOpen(false);
+  const isCurrent = (href) => currentPath.startsWith(href);
 
   return (
-    <header className="module topbar">
-      <Screws sides />
-      <a href="/" className="logo-plate" aria-label="AMG Networking, ir al inicio" onClick={close}>
-        <img src={logo} alt="AMG Networking" width="520" height="216" />
-      </a>
-
-      <nav className="navports" aria-label="Principal">
-        {LINKS.map((link) => (
-          <a key={link.href} href={link.href} aria-current={link.href === currentPath ? 'page' : undefined}>
-            <span className="led" /> {link.label}
-          </a>
-        ))}
-      </nav>
-
-      <a
-        className="wa-pill"
-        href={whatsappLink()}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`WhatsApp ${BUSINESS.phoneDisplay}`}
-      >
-        <span className="wa-pill-icon">
-          <BrandIcon name="whatsapp" size={22} />
-        </span>
-        <span className="wa-pill-text">
-          <small>WHATSAPP</small>
-          <strong>{BUSINESS.phoneDisplay}</strong>
-        </span>
-      </a>
-
-      <button
-        type="button"
-        className="menu-toggle"
-        aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-        aria-expanded={open}
-        aria-controls="menu-movil"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <X size={22} /> : <Menu size={22} />}
-      </button>
-
-      {open && (
-        <nav id="menu-movil" className="module mobile-menu" aria-label="Menú">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={close}>
-              <span className="led" /> {link.label}
+    <>
+      <div className="util-bar">
+        <div className="wrap util-inner">
+          <div className="util-group">
+            <span>
+              <MapPin size={15} aria-hidden="true" /> {locationLabel}
+            </span>
+            <a href={phoneLink}>
+              <Phone size={15} aria-hidden="true" /> {phoneIntl}
             </a>
-          ))}
-        </nav>
-      )}
-    </header>
+          </div>
+          <div className="util-group util-social">
+            {SOCIAL_LINKS.map(({ name, url, label }) => (
+              <a key={name} href={url} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <header className="site-header">
+        <div className="wrap header-inner">
+          <a href="/" className="header-logo" aria-label="AMG Networking, ir al inicio" onClick={close}>
+            <img src={logo} alt="AMG Networking" width="444" height="180" />
+          </a>
+
+          <nav className="site-nav" aria-label="Principal">
+            {LINKS.map((link) => (
+              <a key={link.href} href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <a className="btn btn-primary btn-sm header-cta" href="/contacto/">
+            Solicitar cotización
+          </a>
+
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            aria-controls="menu-movil"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {open && (
+          <nav id="menu-movil" className="mobile-menu" aria-label="Menú">
+            {LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={close}>
+                {link.label}
+              </a>
+            ))}
+            <a className="btn btn-primary" href="/contacto/" onClick={close}>
+              Solicitar cotización
+            </a>
+          </nav>
+        )}
+      </header>
+    </>
   );
 }

@@ -1,15 +1,13 @@
 import { BUSINESS } from './config.js';
 
-// Textos para buscadores. Si defines la ciudad en config.js, se incluye automáticamente.
+// Textos para buscadores. Si define la ciudad en config.js, se incluye automáticamente.
 const city = BUSINESS.city;
 export const inCity = city ? ` en ${city}` : '';
 
 export const SEO = {
-  title: city
-    ? `Redes y Cámaras de Seguridad en ${city} | ${BUSINESS.name}`
-    : `Redes, Cámaras de Seguridad y Soporte Técnico | ${BUSINESS.name}`,
+  title: `Software, Redes y CCTV en ${city ? `${city} y ` : ''}Colombia | ${BUSINESS.name}`,
   // Ideal: menos de 160 caracteres, para que Google la muestre completa
-  description: `Instalación de redes y cableado estructurado, cámaras de seguridad, WiFi y mantenimiento de computadores y servidores${inCity}. Cotiza al ${BUSINESS.phoneDisplay}.`,
-  // Frase con las palabras clave principales (va en el H1 y en el pie de página)
-  headline: `Instalación de redes, cámaras de seguridad y soporte técnico${inCity}`,
+  description: `Software empresarial, páginas web y aplicaciones; redes, radioenlaces y cámaras de seguridad para empresas en Colombia. Cotice al ${BUSINESS.phoneDisplay}.`,
+  // Encabezado principal (H1) de la página de inicio
+  headline: 'Software, redes y cámaras de seguridad para empresas en Colombia',
 };

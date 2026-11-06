@@ -3,7 +3,8 @@
 import { BUSINESS, SITE } from '../src/config.js';
 import { consentHeadScript } from '../src/consent.js';
 import { FAQ } from '../src/data/faq.js';
-import { SERVICES } from '../src/data/services.js';
+import { SERVICES, servicesOf } from '../src/data/services.js';
+import { SOFTWARE_FAQ, SOFTWARE_LINE, SOFTWARE_PATH } from '../src/data/software.js';
 import { SEO } from '../src/seo.js';
 import { findRoute, servicePath } from '../src/routes.js';
 
@@ -19,8 +20,14 @@ const escapeHtml = (text) =>
   String(text).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const meta = (attr, key, content) => `<meta ${attr}="${key}" content="${escapeHtml(content)}" />`;
 
-const areaServed = () =>
-  BUSINESS.city ? { '@type': 'City', name: BUSINESS.city } : { '@type': 'Country', name: 'Colombia' };
+const COUNTRY = { '@type': 'Country', name: 'Colombia' };
+const homeCity = BUSINESS.city ? { '@type': 'City', name: BUSINESS.city } : COUNTRY;
+const serviceAreas = BUSINESS.serviceAreas.map(({ type, name }) => ({ '@type': type, name }));
+
+const offer = (s) => ({
+  '@type': 'Offer',
+  itemOffered: { '@type': 'Service', name: s.title, description: s.description, url: absolute(servicePath(s)) },
+});
 
 function business() {
   const node = {
@@ -32,16 +39,13 @@ function business() {
     telephone: phone,
     email: BUSINESS.email || undefined,
     address: { '@type': 'PostalAddress', addressLocality: BUSINESS.city || undefined, addressCountry: 'CO' },
-    areaServed: areaServed(),
+    areaServed: BUSINESS.city ? [homeCity, ...serviceAreas] : serviceAreas,
     sameAs: Object.values(BUSINESS.social).filter(Boolean),
     contactPoint: { '@type': 'ContactPoint', telephone: phone, contactType: 'customer service', availableLanguage: 'es' },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Servicios de redes, seguridad y soporte técnico',
-      itemListElement: SERVICES.map((s) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: s.title, description: s.description, url: absolute(servicePath(s)) },
-      })),
+      name: 'Software, redes, seguridad y soporte técnico',
+      itemListElement: SERVICES.map(offer),
     },
   };
   if (siteUrl) {
@@ -87,10 +91,39 @@ function structuredData(route) {
         description: route.description,
         url: absolute(route.path),
         provider: { '@id': businessId },
-        areaServed: areaServed(),
+        areaServed: route.service.national ? COUNTRY : homeCity,
       },
       faqPage(route.service.faqs),
     );
+  }
+  if (route.path === SOFTWARE_PATH) {
+    graph.push(
+      {
+        '@type': 'Service',
+        name: 'Desarrollo de software a la medida',
+        serviceType: 'Desarrollo de software',
+        description: route.description,
+        url: absolute(route.path),
+        provider: { '@id': businessId },
+        areaServed: COUNTRY,
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Software, aplicaciones y páginas web',
+          itemListElement: servicesOf(SOFTWARE_LINE).map(offer),
+        },
+      },
+      faqPage(SOFTWARE_FAQ),
+    );
+  }
+  if (route.project) {
+    graph.push({
+      '@type': 'CreativeWork',
+      name: route.project.heading,
+      description: route.description,
+      url: absolute(route.path),
+      creator: { '@id': businessId },
+      contentLocation: { '@type': 'Place', name: route.project.place },
+    });
   }
   if (route.path === '/contacto/') {
     graph.push({ '@type': 'ContactPage', name: route.title, url: absolute(route.path), about: { '@id': businessId } });

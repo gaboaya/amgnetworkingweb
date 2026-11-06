@@ -10,8 +10,9 @@ const SOCIAL_HOST = /^(?:[\w-]+\.)?(facebook|instagram|tiktok|youtube|x)\.com$/;
 
 // Zona de la página donde está el enlace, para saber qué botones generan más contactos
 function areaOf(el) {
-  if (el.closest('.topbar')) return 'barra_superior';
+  if (el.closest('.util-bar, .site-header')) return 'barra_superior';
   if (el.closest('.wa-float')) return 'boton_flotante';
+  if (el.closest('.service-aside')) return 'panel_servicio';
   if (el.closest('footer')) return 'pie_de_pagina';
   return el.closest('section[id]')?.id ?? 'otro';
 }

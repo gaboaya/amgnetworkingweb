@@ -5,35 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página no encontrada | AMG Networking</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#0a0c10" />
+  <meta name="theme-color" content="#0b2545" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root { color-scheme: dark; }
+    :root { color-scheme: light; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: #0a0c10; color: #e8edf3; font: 16px/1.6 system-ui, -apple-system, 'Segoe UI', sans-serif; }
-    .panel { width: min(560px, 100%); padding: 40px 28px; background: #161b22; border: 1px solid #2c333d; border-top-color: #3d4651; border-radius: 4px; text-align: center; }
-    .code { margin: 0; font-family: ui-monospace, monospace; font-size: 12px; letter-spacing: .18em; color: #ffb020; }
-    /* Puerto RJ45 desconectado */
-    .jack { position: relative; width: 72px; height: 58px; margin: 28px auto 42px; background: #05070a; border: 2px solid #ff6b5b; border-radius: 3px; }
-    .jack::before { content: ''; position: absolute; left: 14px; right: 14px; top: 9px; height: 11px; background: repeating-linear-gradient(90deg, #c9a44c 0 2px, transparent 2px 5px); }
-    .jack::after { content: ''; position: absolute; left: 50%; bottom: -14px; width: 28px; height: 14px; margin-left: -14px; background: #05070a; border: 2px solid #ff6b5b; border-top: 0; }
-    h1 { margin: 0 0 10px; font-size: clamp(28px, 6vw, 40px); line-height: 1.1; text-transform: uppercase; }
-    p { margin: 0; color: #b4bec9; }
-    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: 6px; font-weight: 700; text-decoration: none; }
-    .btn-home { background: #19c3ff; color: #04121c; }
-    .btn-wa { background: #25d366; color: #04210f; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 20px; background: #f4f6f9; color: #1b2a3a; font: 17px/1.6 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    main { width: min(560px, 100%); padding: 40px 32px; background: #fff; border: 1px solid #dce2e9; border-radius: 4px; }
+    img { display: block; height: 60px; width: auto; margin-bottom: 32px; }
+    .code { margin: 0 0 8px; font-size: 15px; font-weight: 600; color: #0b6bcb; }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 6vw, 36px); line-height: 1.15; letter-spacing: -0.02em; color: #0b2545; }
+    p { margin: 0; color: #4f5f70; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: 4px; font-weight: 600; text-decoration: none; }
+    .btn-primary { background: #0b6bcb; color: #fff; }
+    .btn-primary:hover { background: #084f97; }
+    .btn-outline { border-color: #0b2545; color: #0b2545; }
+    .btn-outline:hover { background: #f4f6f9; }
   </style>
 </head>
 <body>
-  <main class="panel">
-    <p class="code">ERROR 404 · PUERTO SIN CONEXIÓN</p>
-    <div class="jack" aria-hidden="true"></div>
+  <main>
+    <img src="/logo-claro.webp" alt="AMG Networking" width="444" height="180" />
+    <p class="code">Error 404</p>
     <h1>Página no encontrada</h1>
-    <p>La página que buscas no existe o cambió de dirección.</p>
+    <p>La página que busca no existe o cambió de dirección.</p>
     <div class="actions">
-      <a class="btn btn-home" href="/">Volver al inicio</a>
-      <a class="btn btn-wa" href="https://wa.me/573184220099?text=Hola%20AMG%20Networking%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios.">Escríbenos por WhatsApp</a>
+      <a class="btn btn-primary" href="/">Volver al inicio</a>
+      <a class="btn btn-outline" href="/contacto/">Contacto</a>
     </div>
   </main>
 </body>

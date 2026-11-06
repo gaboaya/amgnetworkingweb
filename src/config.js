@@ -16,6 +16,12 @@ export const BUSINESS = {
   // Ciudad principal donde trabajas (ej: 'Bogotá'). Se agrega al título, al encabezado
   // principal y a los datos para Google: es lo que más ayuda al SEO local.
   city: 'Bogotá',
+  // Otros lugares donde trabaja: se entregan a Google como zona de servicio
+  serviceAreas: [
+    { type: 'City', name: 'Bucaramanga' },
+    { type: 'AdministrativeArea', name: 'Huila' },
+    { type: 'Country', name: 'Colombia' },
+  ],
 
   social: {
     facebook: 'https://www.facebook.com/amgnetworking/',
@@ -39,10 +45,19 @@ export const SITE = {
   googleSiteVerification: '',
 };
 
-export const DEFAULT_WHATSAPP_MESSAGE = 'Hola AMG Networking, quiero información sobre sus servicios.';
+export const DEFAULT_WHATSAPP_MESSAGE = 'Hola AMG Networking, quiero solicitar una cotización.';
 
 export function whatsappLink(message = DEFAULT_WHATSAPP_MESSAGE) {
   return `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
 export const phoneLink = `tel:+${BUSINESS.whatsapp}`;
+export const phoneIntl = `+${BUSINESS.whatsapp.slice(0, 2)} ${BUSINESS.phoneDisplay}`;
+export const locationLabel = BUSINESS.city ? `${BUSINESS.city}, Colombia` : 'Colombia';
+
+const SOCIAL_LABELS = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', x: 'X' };
+
+// Redes configuradas arriba (las vacías se omiten)
+export const SOCIAL_LINKS = Object.entries(BUSINESS.social)
+  .filter(([, url]) => url)
+  .map(([name, url]) => ({ name, url, label: SOCIAL_LABELS[name] }));

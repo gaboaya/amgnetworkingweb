@@ -1,6 +1,6 @@
 # AMG Networking — Sitio web
 
-Sitio web en React + Vite para promocionar los servicios de AMG Networking (diseño "Rack 19 pulgadas").
+Sitio web corporativo en React + Vite para promocionar los servicios de AMG Networking.
 
 ## Comandos
 
@@ -17,8 +17,12 @@ npm run images    # regenerar imágenes optimizadas desde la carpeta fotos/
 | Qué quieres cambiar                                    | Archivo                   |
 | ------------------------------------------------------ | ------------------------- |
 | WhatsApp, correo, ciudad, redes sociales, dominio, GA  | `src/config.js`           |
-| Servicios: panel del inicio y página de cada servicio  | `src/data/services.js`    |
+| Servicios: líneas de servicio y página de cada uno     | `src/data/services.js`    |
+| Desarrollo de software: servicios, preguntas y proceso | `src/data/software.js`    |
+| Proyectos: tarjetas y página de cada uno               | `src/data/projects.js`    |
+| Marcas con las que trabaja                             | `src/data/brands.js`      |
 | Páginas del sitio (URL, título y descripción)          | `src/routes.js`           |
+| Fotos y logos (recortes desde `fotos/`)                | `scripts/optimize-images.mjs`, `src/photos.js` |
 | Preguntas frecuentes                                   | `src/data/faq.js`         |
 | Título y descripción para Google                       | `src/seo.js`              |
 | Colores y estilos                                      | `src/index.css` (`:root`) |
@@ -31,23 +35,29 @@ Si cambias `src/config.js` mientras corre `npm run dev`, reinicia el servidor pa
 
 ## SEO
 
-El sitio tiene 11 páginas, cada una con su propia URL para que Google pueda mostrarla en los resultados:
+El sitio tiene 21 páginas, cada una con su propia URL para que Google pueda mostrarla en los resultados:
 
-| Página                    | URL                                   |
-| ------------------------- | ------------------------------------- |
-| Inicio                    | `/`                                   |
-| Todos los servicios       | `/servicios/`                         |
-| Cada servicio (8 páginas) | `/servicios/instalacion-de-redes/`, … |
-| Contacto                  | `/contacto/`                          |
+| Página                                | URL                                                |
+| ------------------------------------- | -------------------------------------------------- |
+| Inicio                                | `/`                                                |
+| Desarrollo de software                | `/desarrollo-de-software/`                         |
+| Cada servicio de software (4 páginas) | `/desarrollo-de-software/software-empresarial/`, … |
+| Todos los servicios                   | `/servicios/`                                      |
+| Cada servicio (9 páginas)             | `/servicios/instalacion-de-redes/`, …              |
+| Todos los proyectos                   | `/proyectos/`                                      |
+| Cada proyecto (3 páginas)             | `/proyectos/radioenlace-starlink-fincas-timana-huila/`, … |
+| Contacto                              | `/contacto/`                                       |
 
 Al compilar (`npm run build`) se genera automáticamente:
 
 - **HTML prerenderizado** de cada página con todo el contenido: Google, Bing y las vistas previas de WhatsApp lo leen sin ejecutar JavaScript.
 - **Título, descripción, URL canónica y Open Graph** propios de cada página (`src/routes.js`, con la ciudad de `src/config.js`).
 - **Datos estructurados (JSON-LD)**: negocio, servicio, ruta de navegación (Inicio › Servicios › …), preguntas frecuentes y página de contacto.
-- **`sitemap.xml`** con las 11 páginas y sus fotos, y **`robots.txt`** apuntando a él.
+- **`sitemap.xml`** con las 21 páginas y sus fotos, y **`robots.txt`** apuntando a él.
 
-Para agregar un servicio, añádelo en `src/data/services.js`: su página, el sitemap, el menú del pie de página y el panel del inicio se actualizan solos.
+Para agregar un servicio, añádelo en `src/data/services.js` (en `SERVICES` y en la línea de `SERVICE_LINES` que le corresponda): su página, el sitemap, el inicio y el pie de página se actualizan solos.
+
+Para agregar un proyecto, añádelo en `src/data/projects.js`: su tarjeta, su página y el sitemap se crean solos. La ficha técnica (`specs`) y las fotos reales (`photos`) son opcionales y solo aparecen cuando se llenan.
 
 El dominio (`SITE.url`, hoy `https://amgnetworking.com`) y la ciudad (`BUSINESS.city`, hoy `Bogotá`)
 están en `src/config.js`. Si cambian, edítalos ahí y vuelve a compilar.
@@ -82,7 +92,6 @@ Eventos que registra el sitio:
 | `phone_click`    | Clic en "Llamar"                                                    |
 | `social_click`   | Clic en Facebook, Instagram u otra red                              |
 | `generate_lead`  | Envío del formulario de contacto                                    |
-| `select_content` | Selección de un puerto del panel de servicios                       |
 
 En Google Analytics ve a **Administrar → Eventos** y marca `whatsapp_click`, `phone_click` y `generate_lead` como **eventos clave**, para medirlos como clientes potenciales.
 

@@ -1,43 +1,41 @@
-import Module from './Module';
-
 const STEPS = [
-  { title: 'Contacto', text: 'Nos escribes por WhatsApp o redes y nos cuentas qué necesitas.', log: '[ OK ] mensaje recibido' },
-  { title: 'Diagnóstico', text: 'Revisamos el lugar, la red o los equipos, en sitio o de forma remota.', log: '[ OK ] revisión hecha' },
-  { title: 'Propuesta', text: 'Recibes una cotización clara y detallada antes de empezar.', log: '[ OK ] cotización enviada' },
-  { title: 'Instalación y soporte', text: 'Instalamos, probamos, etiquetamos y te acompañamos después.', log: '[ EN LÍNEA ] red funcionando' },
+  { title: 'Solicitud', text: 'Nos cuenta su necesidad por WhatsApp, teléfono o formulario.' },
+  { title: 'Diagnóstico', text: 'Revisamos el lugar, la red o sus procesos, en sitio o de forma remota.' },
+  { title: 'Propuesta', text: 'Recibe una cotización clara y detallada antes de empezar.' },
+  { title: 'Ejecución y soporte', text: 'Ejecutamos, probamos, documentamos y le acompañamos después de la entrega.' },
 ];
 
-export default function Process() {
-  return (
-    <Module id="proceso" code="AMG-SEQ04" label="Secuencia de servicio" units="3U">
-      <div className="section-intro">
-        <h2 className="title-lg">
-          Así
-          <br />
-          trabajamos
-        </h2>
-        <p className="lead">
-          Cuatro pasos, sin sorpresas: antes de empezar sabes qué se hará, cuánto cuesta y cuándo estará listo.
-        </p>
-      </div>
+// `light`: versión sobre fondo blanco
+export default function Process({
+  eyebrow = 'Metodología',
+  title: heading = 'Un proceso claro, de la solicitud a la entrega',
+  lead = 'Antes de iniciar, usted sabe qué se va a hacer, cuánto cuesta y cuándo estará listo.',
+  steps = STEPS,
+  light = false,
+}) {
+  const listClass = ['steps', light && 'is-light', steps.length > 4 && 'is-five'].filter(Boolean).join(' ');
 
-      <div className="steps-wrap">
-        <div className="steps-line" aria-hidden="true" />
-        <ol className="steps">
-          {STEPS.map(({ title, text, log }, i) => {
-            const final = i === STEPS.length - 1;
-            return (
-              <li key={title} className="step">
-                <span className={`step-node ${final ? 'is-final' : ''}`} aria-hidden="true" />
-                <span className="step-label">PASO {String(i + 1).padStart(2, '0')}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <span className={`step-log ${final ? 'is-final' : ''}`}>{log}</span>
-              </li>
-            );
-          })}
+  return (
+    <section id="metodologia" className={light ? 'section' : 'section section-navy'}>
+      <div className="wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">{eyebrow}</p>
+            <h2 className="section-title">{heading}</h2>
+          </div>
+          <p className="section-lead">{lead}</p>
+        </div>
+
+        <ol className={listClass}>
+          {steps.map(({ title, text }, i) => (
+            <li key={title} className="step">
+              <span className="step-label">Paso {i + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </li>
+          ))}
         </ol>
       </div>
-    </Module>
+    </section>
   );
 }

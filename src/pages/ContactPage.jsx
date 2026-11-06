@@ -8,12 +8,10 @@ export default function ContactPage({ crumbs }) {
   return (
     <>
       <PageHeader
-        code="AMG-CON00"
-        label="Contacto"
         crumbs={crumbs}
-        eyebrow="WhatsApp · Llamada · Redes sociales"
+        eyebrow="Contacto"
         title={`Contacto y cotizaciones${inCity}`}
-        lead={`Escríbenos por WhatsApp al ${BUSINESS.phoneDisplay}, llámanos o déjanos tu mensaje en el formulario. Atendemos hogares y empresas${inCity} y te respondemos directamente por WhatsApp.`}
+        lead={`Escríbanos por WhatsApp al ${BUSINESS.phoneDisplay}, llámenos o déjenos su mensaje en el formulario. Atendemos empresas y hogares${inCity} y le respondemos directamente por WhatsApp.`}
       />
       <Contact />
     </>

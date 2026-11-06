@@ -1,56 +1,34 @@
-import espacio from '../assets/espacio-futurista.webp';
-import espacio800 from '../assets/espacio-futurista-800.webp';
-import { BUSINESS } from '../config';
-import Module from './Module';
+import { PHOTOS } from '../photos';
 
-const SPECS = [
-  ['Especialidad', 'Redes de datos, CCTV y soporte de equipos'],
-  ['Cableado', 'Etiquetado y organizado'],
-  ['Equipos', 'Marcas confiables, a tu medida'],
-  ['Asesoría', 'Clara, sin tecnicismos'],
-  ['Postventa', 'Seguimos contigo después de instalar'],
-  ...(BUSINESS.city ? [['Cobertura', BUSINESS.city]] : []),
+const PRINCIPLES = [
+  { title: 'Trabajo ordenado', text: 'Cableado etiquetado, racks organizados y entregas documentadas.' },
+  { title: 'Equipos confiables', text: 'Recomendamos marcas reconocidas, acordes con su necesidad.' },
+  { title: 'Asesoría clara', text: 'Explicamos cada decisión técnica sin tecnicismos.' },
+  { title: 'Acompañamiento', text: 'Seguimos a su lado después de la entrega.' },
 ];
 
 export default function About() {
   return (
-    <Module id="nosotros" code="AMG-INFO" label="Ficha técnica" units="6U">
-      <div className="about-grid">
-        <figure className="monitor">
-          <img
-            src={espacio}
-            srcSet={`${espacio800} 800w, ${espacio} 1600w`}
-            sizes="(max-width: 900px) 100vw, 600px"
-            width="1600"
-            height="900"
-            loading="lazy"
-            alt="Escritorio de AMG Networking con servidores, router y equipo de desarrollo"
-          />
-          <figcaption>
-            <span>CAM 02 · Laboratorio AMG</span>
-          </figcaption>
-        </figure>
-
+    <section id="empresa" className="section">
+      <div className="wrap split about">
+        <img {...PHOTOS.tecnico} className="about-photo" loading="lazy" />
         <div>
-          <h2 className="title-lg">
-            Ficha
-            <br />
-            técnica
-          </h2>
-          <p className="lead">
-            En AMG Networking diseñamos, instalamos y mantenemos la infraestructura tecnológica de hogares y empresas:
-            que todo funcione desde el primer día, y siga funcionando.
+          <p className="eyebrow">La empresa</p>
+          <h2 className="section-title">Del cable a la factura, un solo equipo que responde</h2>
+          <p className="about-text">
+            AMG Networking desarrolla software e instala y mantiene la infraestructura tecnológica de empresas, comercios
+            y hogares. Trabajamos con un objetivo concreto: que todo funcione desde el primer día y siga funcionando.
           </p>
-          <dl className="spec-table">
-            {SPECS.map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
+          <div className="principles">
+            {PRINCIPLES.map(({ title, text }) => (
+              <div key={title} className="principle">
+                <h3>{title}</h3>
+                <p>{text}</p>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </div>
-    </Module>
+    </section>
   );
 }

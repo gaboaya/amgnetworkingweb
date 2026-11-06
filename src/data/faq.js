@@ -1,43 +1,35 @@
 import { BUSINESS } from '../config.js';
 
 // Preguntas frecuentes: se muestran en el sitio y también se entregan a los buscadores
-// como datos estructurados (FAQPage). Responde aquí lo que más te preguntan tus clientes.
+// como datos estructurados (FAQPage). Responda aquí lo que más preguntan sus clientes.
 export const FAQ = [
   {
     question: '¿Qué servicios ofrece AMG Networking?',
     answer:
-      'Instalación de redes y cableado estructurado, cámaras de seguridad (CCTV), redes WiFi, mantenimiento de redes, servidores y computadores, configuración de routers, switches y firewalls, y soporte técnico remoto y en sitio.',
+      'Desarrollo de software, aplicaciones y páginas web para empresas; instalación de redes, radioenlaces y cámaras de seguridad (CCTV); mantenimiento de redes, servidores y computadores, y soporte técnico remoto y en sitio.',
   },
   {
-    question: '¿Puedo ver mis cámaras de seguridad desde el celular?',
+    question: '¿Desarrollan software a la medida para empresas?',
     answer:
-      'Sí. Instalamos cámaras IP y HD con grabador DVR o NVR y dejamos configurada la visualización remota, para que veas tus cámaras en vivo y revises las grabaciones desde tu celular.',
+      'Sí. Desarrollamos software empresarial que reúne inventario, ventas y facturación electrónica en un mismo sistema, además de aplicaciones y páginas web.',
   },
   {
-    question: '¿Atienden hogares o solo empresas?',
+    question: `¿Trabajan fuera de ${BUSINESS.city}?`,
     answer:
-      'Atendemos hogares, oficinas y empresas. Cada trabajo se define según el espacio, la cantidad de equipos y lo que necesitas.',
-  },
-  ...(BUSINESS.city
-    ? [
-        {
-          question: `¿Prestan servicio en ${BUSINESS.city}?`,
-          answer: `Sí, trabajamos en ${BUSINESS.city}. Escríbenos por WhatsApp con la dirección del lugar y coordinamos la visita o el soporte remoto.`,
-        },
-      ]
-    : []),
-  {
-    question: '¿Hacen mantenimiento a la red y a los computadores que ya tengo?',
-    answer:
-      'Sí. Diagnosticamos y optimizamos redes existentes, organizamos racks y hacemos mantenimiento preventivo y correctivo a computadores, portátiles y servidores.',
+      'Sí. Hemos ejecutado proyectos en Bucaramanga y en Timaná, Huila. Escríbanos por WhatsApp con la ubicación del lugar y coordinamos la visita o el soporte remoto.',
   },
   {
-    question: '¿Ofrecen soporte técnico remoto?',
+    question: '¿Atienden solo a empresas?',
     answer:
-      'Sí. Damos soporte remoto y, cuando el problema lo requiere, programamos una visita en sitio.',
+      'Atendemos empresas, oficinas, comercios, fincas y hogares. Cada trabajo se define según el espacio, la cantidad de equipos y su necesidad.',
+  },
+  {
+    question: '¿Puedo ver las cámaras de seguridad desde el celular?',
+    answer:
+      'Sí. Instalamos cámaras IP y HD con grabador DVR o NVR y dejamos configurada la visualización remota, para que vea sus cámaras en vivo y revise las grabaciones desde su celular.',
   },
   {
     question: '¿Cómo solicito una cotización?',
-    answer: `Escríbenos por WhatsApp al ${BUSINESS.phoneDisplay} o llena el formulario de contacto. Si nos envías fotos o videos del lugar o del equipo, la cotización sale más rápida y precisa.`,
+    answer: `Escríbanos por WhatsApp al ${BUSINESS.phoneDisplay} o diligencie el formulario de contacto. Si nos envía fotos, videos o una descripción de sus procesos, la cotización será más rápida y precisa.`,
   },
 ];
